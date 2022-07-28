@@ -15,3 +15,19 @@ ALTER TABLE member_copy MODIFY COLUMN nickname varchar(100);
 
 -- 컬럽 이름 변경
 ALTER TABLE member_copy CHANGE COLUMN nickname nick varchar(45);
+
+-- 컬럼 삭제
+ALTER TABLE member_copy drop COLUMN nick;
+
+-- row 삭제
+DELETE FROM member_copy where seq = 2;
+
+-- comit / rollback
+
+select*from member_copy;
+
+-- 데이터 수정
+UPDATE member_copy SET
+name="Tony"
+, nameEng="Great"
+where seq =1;
