@@ -11,6 +11,11 @@ from group_a a
 inner join code b on b.group_seq = a.seq
 ;
 
+-- 비밀번호 찾기
+select pw
+from member 
+where pw = (select pw from member where id="lasldjf")
+;
 
 -- 로그인
 select 1=1
@@ -22,19 +27,22 @@ where id = "lasldjf" and pw = "la381"
 and delYn = 1
 ;
 
+SELECT id FROM member_copy1
+UNION
+SELECT id FROM member
+;
+
+
 -- main.keyboard 목록
-select
-	a.title
+select 1=1
+	,a.title
     ,a.price
     ,a.mainYn
+    ,a.delYn
 from product a
 where mainYn = 1
 and delYn = 1
 ;
-
--- 
-
-
 
 -- 리뷰
 select
@@ -44,8 +52,8 @@ select
 from member a
 inner join review b on b.seq = a.seq
 inner join product c on c.seq = a.seq
-
 ;
+
 -- 상품
 select
 	b.seq
@@ -74,7 +82,26 @@ select
     ,b.useYn
 from member a
 inner join member_address b on b.member_seq = a.seq
+
 ;
+
+select
+	a.id
+    ,a.pw
+    ,a.gender
+    ,a.dob
+    ,b.address_zipcode
+    ,b.address_zip
+    ,b.address_detail
+	,a.email
+    ,a.number_phone
+    ,a.Regdate
+    ,b.useYn
+from member a
+inner join member_address b on b.member_seq = a.seq
+;
+
+
 
 -- 주문정보
 select
