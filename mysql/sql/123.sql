@@ -30,13 +30,30 @@ SELECT
     ,(select count(CC.seq) from code CC where 1=1 and group_seq = CCG.seq) as CCcount
     ,CCG.regdate
 FROM  codeGroup CCG
-WHERE delYn = 0
+WHERE delYn = 1
+;
+
+
+SELECT
+	CCG.seq
+	,CCG.groupName
+	,CCG.groupName_en
+	,(select count(CC.seq) from code CC where 1=1 and group_seq = CCG.seq) as CCcount
+	,CCG.regdate
+	FROM  codeGroup CCG
+WHERE 1=1 
+AND CCG.regdate between '2022-05-20' and '2022-06-30'
 ;
 
 select count(CC.seq) from code CC where 1=1 and group_seq = 4;
 
     
     
+select * from codeGroup order by regdate desc;
+
+
+select * from codeGroup;
+
 
 
 
