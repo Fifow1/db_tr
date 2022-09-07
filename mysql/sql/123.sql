@@ -45,6 +45,15 @@ WHERE 1=1
 AND CCG.regdate between '2022-05-20' and '2022-06-30'
 ;
 
+INSERT INTO codeGroup(
+	seq
+    ,codename
+    ,codename_en
+    ,delYn
+)
+
+
+
 select count(CC.seq) from code CC where 1=1 and group_seq = 4;
 
     
@@ -53,7 +62,21 @@ select * from codeGroup order by regdate desc;
 
 
 select * from codeGroup;
+select * from code;
+
+SELECT 
+	CC.seq AS CCseq
+	,CCG.seq AS CCGseq
+	,CCG.groupName AS CCGname
+	,CCG.groupName_en AS CCGname_en
+	,CC.seq AS CCseq
+	,CC.codename AS CCname
+	,CC.regdate AS CCregdate
+	,CC.delYn AS CCdelYn
+FROM code CC
+INNER JOIN codeGroup CCG ON CCG.seq = CC.group_seq
+WHERE 1=1
+;
 
 
-
-
+SELECT seq,groupName From codeGroup; 
