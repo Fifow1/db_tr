@@ -57,12 +57,6 @@ INSERT INTO codeGroup(
 select count(CC.seq) from code CC where 1=1 and group_seq = 4;
 
     
-    
-select * from codeGroup order by regdate desc;
-
-
-select * from codeGroup;
-select * from code;
 
 SELECT 
 	CC.seq AS CCseq
@@ -79,4 +73,11 @@ WHERE 1=1
 ;
 
 
-SELECT seq,groupName From codeGroup; 
+select 
+      *
+  from codeGroup
+  where 1=1
+  AND seq > 0
+  order by seq asc, regdate asc;
+  limit 1, 10
+  ;
