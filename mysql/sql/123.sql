@@ -20,8 +20,8 @@ SELECT
     ,CC.delYn AS CCdelYn
 FROM code CC
 left JOIN codeGroup CCG ON CCG.seq = CC.group_seq
-where 1=1
-limit 2 offset 0
+-- where 1=1
+-- limit 2 offset 0
 
 ;
 
@@ -132,4 +132,12 @@ where id = 'lasldjf' AND pw = 'la381';
 SELECT seq,id,pw
 FROM member 
 where id = 'lasldjf';
+
+-- 아이디 찾기 --
+-- 비밀번호 찾기 --
+
+SELECT pro.seq AS ifpoSeq ,pr.category AS ifprCategory ,pr.title AS ifprTitle ,pro.option AS 
+ifpoOption ,pro.optionSub AS ifpoOptionSub ,pr.price AS ifprPrice ,pr.stock AS ifprStock ,pr.mainYn 
+AS ifprMainYn FROM product pr LEFT JOIN productOption pro ON pr.seq = pro.product_seq WHERE 
+1=1 AND mainYN = 1 AND pr.category = 34 ; 
 
