@@ -136,8 +136,76 @@ where id = 'lasldjf';
 -- 아이디 찾기 --
 -- 비밀번호 찾기 --
 
-SELECT pro.seq AS ifpoSeq ,pr.category AS ifprCategory ,pr.title AS ifprTitle ,pro.option AS 
-ifpoOption ,pro.optionSub AS ifpoOptionSub ,pr.price AS ifprPrice ,pr.stock AS ifprStock ,pr.mainYn 
-AS ifprMainYn FROM product pr LEFT JOIN productOption pro ON pr.seq = pro.product_seq WHERE 
-1=1 AND mainYN = 1 AND pr.category = 34 ; 
+select
+    a.*,
+    group_concat(b.file_idx, b.file_name SEPARATOR '|')    
+from(
+    select
+        *
+    from board
+    limit 0, 10 #paging처리
+) a
+left outer join file_info b
+on a.idx = b.board_idx
+group by a.idx;
 
+
+
+SELECT 
+	a.*
+    ,group_concat(pro .optionSub separator ',') AS 'optionSub'
+from(
+	select
+    *
+    from product pr
+	order by pr.seq DESC 
+    ) a
+LEFT JOIN productOption pro 
+ON a.seq = pro.product_seq
+WHERE 1=1 
+AND category = 35
+group by product_seq
+;
+        SELECT 
+			pr.seq
+            ,(select DISTINCT category ) as category
+            ,pr.title
+            ,pr.star
+            ,pr.price
+            ,pr.stock
+            ,pr.uploadDate
+		    ,group_concat(pro .optionSub separator ',') AS 'optionSub'
+		from(
+			select
+		    pr.seq
+            ,pr.category
+            ,pr.title
+            ,pr.star
+            ,pr.price
+            ,pr.stock
+            ,pr.uploadDate
+		    from product pr
+			order by pr.seq DESC 
+		    ) pr
+		LEFT JOIN productOption pro 
+		ON pr.seq = pro.product_seq
+		WHERE 1=1 
+		group by product_seq
+		;
+
+SELECT 
+			pr.seq
+            ,(select DISTINCT category ) as category
+            ,pr.title
+            ,pr.star
+            ,pr.price
+            ,pr.stock
+            ,pr.uploadDate
+            ,pro.Option
+		    ,pro.optionSub
+		from product pr
+		LEFT JOIN productOption pro 
+		ON pr.seq = pro.product_seq
+		WHERE 1=1 
+		group by product_seq
+		;
