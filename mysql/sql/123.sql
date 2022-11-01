@@ -81,58 +81,6 @@ ORDER BY CCG.seq ASC
 
 LIMIT 10 offset 20
 ;
-
-
-
-
-			
-select aa.* FROM(
-	SELECT
-		CCG.seq
-		,CCG.groupName_code
-		,CCG.groupName
-		,CCG.groupName_en
-		,(select count(CC.seq) from code CC where 1=1 and group_seq = CCG.seq) as CCcount
-		,CCG.regdate
-	FROM codeGroup CCG
-	WHERE 1=1
-		<choose>
-			<when test="shDelYn == 2"></when>
-			<when test="shDelYn != null and !shDelYn.equals('')">AND CCG.delYn = #{shDelYn}</when>
-			<otherwise></otherwise>
-		</choose>
-		<choose>
-			<when test="shOption == 1">AND CCG.groupName_code LIKE CONCAT('%',#{shValue},'%')</when>
-			<when test="shOption == 2">AND CCG.groupName LIKE CONCAT('%',#{shValue},'%')</when>
-			<when test="shOption == 3">AND CCG.groupName_en LIKE CONCAT('%',#{shValue},'%')</when>
-			<otherwise></otherwise>
-		</choose>
-		<choose>
-			<when test="shdate == 1">AND CCG.regdate between #{shdate_s} and #{shdate_e}</when>
-			<when test="shdate == 2">AND CCG.moddate between #{shdate_s} and #{shdate_e}</when>
-			<otherwise></otherwise>
-		</choose>
-	ORDER BY CCG.seq ASC
-	) aa
-	limit #{rowNumToShow} offset #{startRnumForMysql}
-</select>;
-SELECT 
-	seq as CCGseq
-	,groupName as CCGname
-FROM codeGroup
-WHERE 1=1;
-
--- 로그인 --
-SELECT seq,id, pw
-POINT FROM member 
-where id = 'lasldjf' AND pw = 'la381';
-
--- 로그인(비밀번호 암호화) --
-
-SELECT seq,id,pw
-FROM member 
-where id = 'lasldjf';
-
 -- 아이디 찾기 --
 -- 비밀번호 찾기 --
 
@@ -206,6 +154,34 @@ SELECT
 		from product pr
 		LEFT JOIN productOption pro 
 		ON pr.seq = pro.product_seq
-		WHERE 1=1 
-		group by product_seq
+        where pr.seq = 1;
 		;
+        
+	
+-- index
+SHOW index FROM member;
+CREATE INDEX abc ON member(delYn,id);
+ALTER TABLE member DROP INDEX abc;
+
+
+
+DELIMITER $$
+CREATE FUNCTION lasldjf.member (
+seq bigint
+) 
+RETURNS varchar(100)
+BEGIN
+    declare rtName varchar(100);
+	select
+		id into rtName
+	from
+		member
+	where 1=1
+		and seq = seq
+	;
+	RETURN rtName;
+END$$
+DELIMITER ;
+
+SET GLOBAL log_bin_trust_function_creators = 1
+;
